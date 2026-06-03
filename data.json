@@ -1,0 +1,409 @@
+{
+  "meta": {
+    "title": "AI Agent 工作流平台竞品分析",
+    "subtitle": "基于 Sales Pre-call Research Agent 的 Dify、Coze、Relevance AI 实测对比",
+    "conclusion": "Dify 更偏生产级 LLM 应用开发，Coze 更偏中文低代码 Agent 搭建，Relevance AI 更偏企业 AI Workforce 与业务自动化。",
+    "year": 2026
+  },
+  "sampleNote": {
+    "title": "实测样本说明",
+    "intro": "我分别在 Relevance AI 和 Coze 中搭建了同一个 Sales Pre-call Research Agent，并以此为统一测试样本，对比 Dify、Coze、Relevance AI 三个 Agent 工作流平台在真实业务场景下的搭建与运行表现。",
+    "details": [
+      "测试 Agent：Sales Pre-call Research Agent（销售通话前背调报告自动生成）",
+      "实测搭建：已在 Relevance AI、Coze 中分别完成完整搭建；Dify 基于文档与对照分析评估，工程化复刻进行中",
+      "统一任务：输入公司名称、公司资料、我方产品/服务、销售目标与目标联系人角色，自动生成背调报告与销售话术",
+      "对比重点：各平台在工具调用、流程编排、变量传递、输出控制与调试体验上的差异"
+    ]
+  },
+  "background": {
+    "title": "项目背景",
+    "content": "大模型应用正在从「聊天问答」走向「任务执行」。Agent 平台的竞争不只是模型能力，而是能否稳定完成工具调用、流程编排、变量传递、知识接入和业务输出。"
+  },
+  "productGoals": {
+    "title": "用户痛点与产品目标",
+    "intro": "竞品分析不是目的，核心是验证「Sales Pre-call Research Agent 是否值得做、怎么做」。以下从用户痛点出发，明确产品目标与可衡量的成功标准。",
+    "cards": [
+      {
+        "label": "目标用户",
+        "icon": "👤",
+        "items": [
+          "SDR / 销售开发代表：冷启动 outreach 前的快速背调",
+          "AE / 客户经理：首通或 demo 前的客户洞察准备",
+          "销售 Team Leader：统一团队背调质量与话术标准"
+        ]
+      },
+      {
+        "label": "核心痛点",
+        "icon": "⚠",
+        "items": [
+          "通话前背调耗时长：手动搜索官网、LinkedIn、新闻需 30–60 分钟",
+          "信息来源分散：公司洞察、竞品动态、联系人背景散落各处",
+          "输出质量不稳定：不同销售背调深度和话术风格差异大",
+          "准备与通话脱节：背调结论难以转化为开场白和问题清单"
+        ]
+      },
+      {
+        "label": "产品目标",
+        "icon": "🎯",
+        "items": [
+          "输入公司名与少量业务上下文，5 分钟内生成可直接使用的通话前背调包",
+          "结构化输出：速读版 + 完整版 + 话术 + 问题清单 + 推进建议",
+          "降低销售准备成本，提升首通/demo 的专业度与转化率"
+        ]
+      },
+      {
+        "label": "MVP 范围",
+        "icon": "📦",
+        "items": [
+          "优先做「背调报告生成」，不做自动外呼或 CRM 深度集成",
+          "输入以公司资料 + 销售目标为主，后续再接 Firecrawl 自动抓取",
+          "验证重点：Workflow 能否稳定完成端到端任务，而非追求功能全覆盖"
+        ]
+      }
+    ],
+    "successMetrics": [
+      { "metric": "生成耗时", "target": "≤ 5 分钟（对比手动 30–60 分钟）", "icon": "⏱" },
+      { "metric": "输出完整度", "target": "7 项规定模块均可稳定生成", "icon": "✓" },
+      { "metric": "直接可用率", "target": "销售无需大幅修改即可用于通话准备", "icon": "★" },
+      { "metric": "平台搭建效率", "target": "记录各平台首次可运行 Demo 的搭建时长", "icon": "⚙" }
+    ]
+  },
+  "myRole": {
+    "title": "我的角色与交付",
+    "intro": "本项目为本人独立完成的 AI 产品分析实践：从业务场景定义、Agent 方案设计，到多平台实测搭建与选型结论输出，全程以 AI 产品经理视角推进。",
+    "responsibilities": [
+      {
+        "area": "需求与场景定义",
+        "color": "#6366f1",
+        "items": [
+          "定义 Sales Pre-call Research Agent 的业务场景与目标用户",
+          "设计标准输入字段（公司资料、销售目标、联系人角色等）",
+          "明确 7 项结构化输出与 5 步业务流程"
+        ]
+      },
+      {
+        "area": "Agent 方案设计",
+        "color": "#06b6d4",
+        "items": [
+          "设计 Workflow 拆分逻辑：公司洞察提取 → 报告生成 → 话术输出",
+          "编写 Prompt 思路与输出格式约束",
+          "制定三平台横评的统一测试基准"
+        ]
+      },
+      {
+        "area": "实测与评估",
+        "color": "#a855f7",
+        "items": [
+          "在 Relevance AI、Coze 中独立完成 Agent 搭建与运行验证",
+          "建立 9 维度评估矩阵，完成截图与流程对比",
+          "输出场景化平台选型结论与下一步产品化计划"
+        ]
+      }
+    ],
+    "deliverables": [
+      "Sales Pre-call Research Agent 标准任务定义（输入 / 输出 / 流程）",
+      "Relevance AI、Coze 实测搭建与过程截图",
+      "三平台能力对比矩阵、雷达图与定位分析",
+      "按 GTM Demo / 低代码作品集 / 企业部署三类场景的选型建议",
+      "本作品集页面（可部署至 GitHub Pages）"
+    ]
+  },
+  "methodology": {
+    "title": "实测方法说明",
+    "intro": "本报告采用「同一标准任务、多平台横评」的方法：以 Sales Pre-call Research Agent 为固定测试样本，在 Dify、Coze、Relevance AI 三个平台中分别复刻同一业务工作流，从搭建效率、流程可控性、工具集成与输出质量等维度进行对照分析。",
+    "steps": [
+      "定义标准任务：明确 Agent 输入字段、输出结构与业务流程，确保三平台对比基准一致",
+      "分平台搭建：在 Relevance AI、Coze 中完整实现 Agent；Dify 工程化复刻列入下一步计划",
+      "统一测试输入：使用相同的公司资料、销售目标与联系人角色，观察各平台运行表现",
+      "多维评估：从 9 个能力维度打分，并结合截图、流程对比与场景适配给出结论"
+    ]
+  },
+  "scoringNote": {
+    "title": "评分依据说明",
+    "content": "本页所有评分与图表均基于 Sales Pre-call Research Agent 这一具体业务场景的实测体验，反映各平台在该场景下的相对表现，不代表平台的绝对能力排名。不同团队、不同任务类型下的结论可能有所差异，选型时应结合自身的使用场景综合判断。"
+  },
+  "testTask": {
+    "title": "标准测试任务",
+    "description": "Sales Pre-call Research Agent — 销售通话前背调报告自动生成",
+    "inputs": [
+      "公司名称",
+      "公司官网或公司资料",
+      "我方产品/服务",
+      "销售目标",
+      "目标联系人角色"
+    ],
+    "outputs": [
+      "3 分钟速读版",
+      "完整分析版",
+      "可能痛点 Top 3",
+      "30 秒开场白",
+      "首通电话问题",
+      "不建议说的话",
+      "会后推进建议"
+    ],
+    "flow": [
+      { "step": 1, "label": "输入公司资料", "icon": "📥" },
+      { "step": 2, "label": "提取公司洞察", "icon": "🔍" },
+      { "step": 3, "label": "生成 3 分钟速读版", "icon": "⚡" },
+      { "step": 4, "label": "生成完整分析版", "icon": "📊" },
+      { "step": 5, "label": "输出销售话术与推进建议", "icon": "🎯" }
+    ]
+  },
+  "platforms": [
+    {
+      "id": "dify",
+      "name": "Dify",
+      "color": "#6366f1",
+      "positioning": "生产级 LLM 应用开发平台",
+      "targetUsers": "开发者、AI 工程师、企业技术团队",
+      "keywords": ["Workflow", "RAG", "API", "私有化部署", "生产级"],
+      "strengths": [
+        "Workflow 编排能力成熟，节点类型丰富",
+        "变量传递与条件分支逻辑清晰",
+        "支持 RAG、工具调用、API 发布",
+        "企业级部署与权限管理能力突出"
+      ],
+      "weaknesses": [
+        "上手门槛相对较高，偏工程化",
+        "业务场景模板较少，需自行设计",
+        "中文文档与社区体验弱于 Coze"
+      ],
+      "summary": "适合构建可上线、可维护的生产级 LLM 应用，是工程化 Agent 平台的首选。",
+      "overallScore": 8.4,
+      "position": { "easeOfUse": 6.5, "enterpriseAutomation": 9.2 }
+    },
+    {
+      "id": "coze",
+      "name": "Coze",
+      "color": "#06b6d4",
+      "positioning": "中文低代码 Agent 搭建平台",
+      "targetUsers": "产品经理、运营、学生、中文用户",
+      "keywords": ["低代码", "Workflow", "Bot", "中文体验", "快速搭建"],
+      "strengths": [
+        "Workflow 可视化编排直观，上手快",
+        "变量传递清晰，节点间数据流易理解",
+        "中文界面与文档体验优秀",
+        "适合快速搭建可控的 Agent Demo"
+      ],
+      "weaknesses": [
+        "企业级能力与私有化部署选项有限",
+        "复杂业务自动化场景支持较弱",
+        "工具生态偏通用，垂直场景感不足"
+      ],
+      "summary": "最适合中文用户快速搭建 Workflow Agent，是低代码作品集和可控流程验证的优选。",
+      "overallScore": 8.0,
+      "position": { "easeOfUse": 9.0, "enterpriseAutomation": 6.8 }
+    },
+    {
+      "id": "relevance",
+      "name": "Relevance AI",
+      "color": "#a855f7",
+      "positioning": "企业 AI Workforce 与业务自动化平台",
+      "targetUsers": "销售、增长、运营、业务团队",
+      "keywords": ["AI Workforce", "Inventor", "业务自动化", "工具推荐", "Sales Agent"],
+      "strengths": [
+        "Inventor 自动推荐工具，业务场景感强",
+        "内置网页抓取、Google Search、LinkedIn 等销售工具",
+        "AI Workforce 概念包装清晰，业务团队易理解",
+        "快速搭建销售类 Agent Demo 效率极高"
+      ],
+      "weaknesses": [
+        "Workflow 编排精细度不如 Dify",
+        "变量传递与输出控制灵活性有限",
+        "中文体验与本地化支持较弱"
+      ],
+      "summary": "最适合业务团队快速搭建销售/增长类 Agent，是 AI Workforce 场景验证的利器。",
+      "overallScore": 7.8,
+      "position": { "easeOfUse": 8.2, "enterpriseAutomation": 8.5 }
+    }
+  ],
+  "matrix": {
+    "title": "能力对比矩阵",
+    "dimensions": [
+      "上手门槛",
+      "Workflow 编排",
+      "变量传递",
+      "工具调用",
+      "输出控制",
+      "调试体验",
+      "中文体验",
+      "业务场景感",
+      "企业能力"
+    ],
+    "scores": {
+      "dify": [6, 9, 9, 9, 9, 8, 6, 6, 9],
+      "coze": [9, 8, 8, 7, 8, 7, 10, 7, 6],
+      "relevance": [8, 7, 6, 8, 6, 6, 5, 10, 8]
+    },
+    "labels": {
+      "dify": "Dify",
+      "coze": "Coze",
+      "relevance": "Relevance AI"
+    }
+  },
+  "workflowComparison": {
+    "title": "实测流程对比",
+    "items": [
+      {
+        "platform": "Dify",
+        "color": "#6366f1",
+        "approach": "偏工程化 LLM 应用平台，适合生产级应用",
+        "details": [
+          "需手动设计 Workflow 节点与变量映射",
+          "支持 LLM 节点、知识库检索、HTTP 工具调用",
+          "输出格式通过 Prompt 与结构化解析控制",
+          "调试面板可查看每步输入输出，适合迭代优化",
+          "适合有技术背景的团队构建可维护的 Agent"
+        ]
+      },
+      {
+        "platform": "Coze",
+        "color": "#06b6d4",
+        "approach": "通过 Workflow 将任务拆成两个大模型节点，变量清晰，中文体验好",
+        "details": [
+          "节点一：公司洞察提取（输入公司资料 → 结构化洞察）",
+          "节点二：报告生成（洞察 + 销售目标 → 完整背调报告）",
+          "变量在节点间自动传递，可视化清晰",
+          "中文 Prompt 编写与调试体验流畅",
+          "适合产品经理快速验证 Agent 逻辑"
+        ]
+      },
+      {
+        "platform": "Relevance AI",
+        "color": "#a855f7",
+        "approach": "通过 Inventor 自动推荐工具，业务场景感强",
+        "details": [
+          "Inventor 根据任务描述自动推荐工具链",
+          "内置网页抓取、公司洞察、Google Search、LinkedIn 等",
+          "Agent 包装为 AI Workforce 成员，业务语义清晰",
+          "搭建 Sales Pre-call Research Agent 速度最快",
+          "适合销售/增长团队零代码上手"
+        ]
+      }
+    ]
+  },
+  "screenshots": {
+    "title": "实测过程截图",
+    "description": "以下为 Sales Pre-call Research Agent 在 Relevance AI 与 Coze 中的实际搭建与运行截图，点击可放大查看。",
+    "items": [
+      {
+        "platform": "Relevance AI",
+        "color": "#a855f7",
+        "caption": "Relevance AI 搭建页面",
+        "src": "assets/relevance-ai-setup.png",
+        "alt": "Relevance AI 中 Sales Pre-call Research Agent 搭建页面",
+        "insight": "体现 Relevance AI Inventor 自动推荐工具链的能力：根据任务描述一键生成 Agent 结构，内置网页抓取、Google Search、LinkedIn 等销售场景工具，业务团队零代码即可快速搭建 AI Workforce。"
+      },
+      {
+        "platform": "Coze",
+        "color": "#06b6d4",
+        "caption": "Coze Workflow 页面",
+        "src": "assets/coze-workflow.png",
+        "alt": "Coze 中 Sales Pre-call Research Agent Workflow 编排页面",
+        "insight": "体现 Coze Workflow 可视化编排与变量传递能力：将任务拆分为「公司洞察提取」和「报告生成」两个 LLM 节点，节点间数据流清晰，中文低代码环境下流程可控、易于调试。"
+      },
+      {
+        "platform": "Coze",
+        "color": "#06b6d4",
+        "caption": "Coze 输出结果",
+        "src": "assets/coze-output.png",
+        "alt": "Coze 中 Sales Pre-call Research Agent 运行输出结果",
+        "insight": "体现 Coze 结构化输出与 Prompt 控制能力：同一 Workflow 可稳定生成 3 分钟速读版、完整分析版、开场白与首通电话问题等销售背调报告，输出格式符合预设业务模板。"
+      }
+    ]
+  },
+  "findings": {
+    "title": "关键发现",
+    "items": [
+      {
+        "id": 1,
+        "text": "Agent 平台竞争不只是模型能力，而是工作流、工具、调试和业务场景适配能力。"
+      },
+      {
+        "id": 2,
+        "text": "Dify 更适合开发者和企业团队构建生产级 LLM 应用。"
+      },
+      {
+        "id": 3,
+        "text": "Coze 更适合中文用户、产品经理、运营和学生搭建可控 Workflow Agent。"
+      },
+      {
+        "id": 4,
+        "text": "Relevance AI 更适合销售、增长、运营等业务团队搭建 AI Workforce。"
+      },
+      {
+        "id": 5,
+        "text": "Sales Pre-call Research Agent 是一个适合验证 Agent 平台能力的业务型场景。"
+      }
+    ]
+  },
+  "finalConclusion": {
+    "title": "结论：按使用场景推荐平台",
+    "content": "通过同一 Sales Pre-call Research Agent 的复刻实测，三类平台并无绝对的「谁更好」，关键在于匹配团队技术背景、业务目标与部署需求。综合实测体验，按以下三类典型场景给出推荐：",
+    "scenarios": [
+      {
+        "scenario": "快速销售 / GTM Agent Demo",
+        "platform": "Relevance AI",
+        "color": "#a855f7",
+        "reasons": [
+          "Inventor 可根据任务描述自动推荐工具链，零代码搭建速度最快",
+          "内置网页抓取、Google Search、LinkedIn 等 GTM 场景工具，业务语义清晰",
+          "AI Workforce 包装直观，适合向销售、增长团队快速演示 Agent 价值"
+        ]
+      },
+      {
+        "scenario": "中文低代码 Workflow 作品集",
+        "platform": "Coze",
+        "color": "#06b6d4",
+        "reasons": [
+          "Workflow 可视化编排直观，节点拆分与变量传递清晰可控",
+          "中文界面、Prompt 编写与调试体验优秀，上手门槛低",
+          "适合产品经理、运营或学生快速搭建可展示、可讲解的 Agent 作品集"
+        ]
+      },
+      {
+        "scenario": "生产级 LLM 应用和企业部署",
+        "platform": "Dify",
+        "color": "#6366f1",
+        "reasons": [
+          "Workflow 编排成熟，支持 RAG、工具调用、API 发布与条件分支",
+          "变量传递与输出控制精细，调试面板便于生产级迭代优化",
+          "支持私有化部署与企业权限管理，适合技术团队构建可维护的 LLM 应用"
+        ]
+      }
+    ]
+  },
+  "nextSteps": {
+    "title": "项目复盘与下一步计划",
+    "intro": "本次实测验证了三个平台在 Sales Pre-call Research Agent 场景下的核心差异。作为作品集项目，后续计划从「手动输入公司资料」升级为「自动抓取 + 工程化复刻」，进一步对比平台的生产级能力。",
+    "items": [
+      {
+        "phase": "当前完成",
+        "color": "#94a3b8",
+        "points": [
+          "在 Relevance AI、Coze 中完成 Sales Pre-call Research Agent 搭建与运行",
+          "定义统一测试任务，完成 9 维度能力评分与可视化对比",
+          "输出实测截图、流程差异分析与场景化选型结论"
+        ]
+      },
+      {
+        "phase": "下一步：Firecrawl 自动抓取",
+        "color": "#06b6d4",
+        "points": [
+          "接入 Firecrawl，实现公司官网与公开资料的自动抓取与结构化提取",
+          "减少手动粘贴公司资料的操作，提升 Agent 输入端的自动化程度",
+          "对比各平台对接外部抓取工具的配置成本与稳定性"
+        ]
+      },
+      {
+        "phase": "下一步：Dify 工程化复刻",
+        "color": "#6366f1",
+        "points": [
+          "在 Dify 中复刻完整的 Sales Pre-call Research Agent Workflow",
+          "对齐 Coze / Relevance AI 版本的节点逻辑、变量映射与输出格式",
+          "验证 Dify 在生产级场景下的 RAG、API 发布与私有化部署能力"
+        ]
+      }
+    ]
+  }
+}

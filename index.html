@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Agent 工作流平台竞品分析：Dify、Coze、Relevance AI 基于 Sales Pre-call Research Agent 实测对比">
+  <meta name="theme-color" content="#FBF7F0">
+  <title>AI Agent 工作流平台竞品分析</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">Agent 竞品分析</span>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">概览</a></li>
+        <li><a href="#background">背景</a></li>
+        <li><a href="#productGoals">痛点</a></li>
+        <li><a href="#myRole">角色</a></li>
+        <li><a href="#methodology">方法</a></li>
+        <li><a href="#sampleNote">样本</a></li>
+        <li><a href="#platforms">平台</a></li>
+        <li><a href="#matrix">矩阵</a></li>
+        <li><a href="#charts">图表</a></li>
+        <li><a href="#workflow">实测</a></li>
+        <li><a href="#screenshots">截图</a></li>
+        <li><a href="#findings">发现</a></li>
+        <li><a href="#nextSteps">复盘</a></li>
+        <li><a href="#conclusion">结论</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-badge" id="heroBadge"></div>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-subtitle" id="heroSubtitle"></p>
+      <div class="hero-conclusion" id="heroConclusion"></div>
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Background -->
+    <section class="section" id="background">
+      <div class="container">
+        <h2 class="section-title" id="backgroundTitle"></h2>
+        <p class="section-text" id="backgroundContent"></p>
+      </div>
+    </section>
+
+    <!-- Product Goals -->
+    <section class="section section-alt" id="productGoals">
+      <div class="container">
+        <h2 class="section-title" id="productGoalsTitle"></h2>
+        <p class="section-desc" id="productGoalsIntro"></p>
+        <div class="pm-grid" id="productGoalsGrid"></div>
+        <div class="metrics-grid" id="successMetrics"></div>
+      </div>
+    </section>
+
+    <!-- My Role -->
+    <section class="section" id="myRole">
+      <div class="container">
+        <h2 class="section-title" id="myRoleTitle"></h2>
+        <p class="section-text" id="myRoleIntro"></p>
+        <div class="role-grid" id="myRoleGrid"></div>
+        <div class="deliverables-box" id="myDeliverables"></div>
+      </div>
+    </section>
+
+    <!-- Methodology -->
+    <section class="section section-alt" id="methodology">
+      <div class="container">
+        <h2 class="section-title" id="methodologyTitle"></h2>
+        <div class="conclusion-box" id="methodologyContent"></div>
+      </div>
+    </section>
+
+    <!-- Sample Note -->
+    <section class="section" id="sampleNote">
+      <div class="container">
+        <h2 class="section-title" id="sampleNoteTitle"></h2>
+        <div class="conclusion-box" id="sampleNoteContent"></div>
+      </div>
+    </section>
+
+    <!-- Test Task -->
+    <section class="section section-alt" id="testTask">
+      <div class="container">
+        <h2 class="section-title" id="testTaskTitle"></h2>
+        <p class="section-desc" id="testTaskDesc"></p>
+        <div class="io-grid">
+          <div class="io-card">
+            <h3>输入</h3>
+            <ul id="testInputs"></ul>
+          </div>
+          <div class="io-card">
+            <h3>输出</h3>
+            <ul id="testOutputs"></ul>
+          </div>
+        </div>
+        <div class="flow-timeline" id="flowTimeline"></div>
+      </div>
+    </section>
+
+    <!-- Platform Cards -->
+    <section class="section" id="platforms">
+      <div class="container">
+        <h2 class="section-title">三个平台产品概览</h2>
+        <div class="platform-grid" id="platformGrid"></div>
+      </div>
+    </section>
+
+    <!-- Matrix -->
+    <section class="section section-alt" id="matrix">
+      <div class="container">
+        <h2 class="section-title" id="matrixTitle"></h2>
+        <div class="matrix-wrapper">
+          <table class="matrix-table" id="matrixTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="scoring-note" id="scoringNote"></div>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="section" id="charts">
+      <div class="container">
+        <h2 class="section-title">数据可视化对比</h2>
+        <div class="scoring-note scoring-note-inline" id="scoringNoteCharts"></div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>能力雷达图</h3>
+            <p class="chart-desc">九个维度综合评分对比（满分 10 分）</p>
+            <div id="radarChart" class="chart-container"></div>
+          </div>
+          <div class="chart-card">
+            <h3>综合得分柱状图</h3>
+            <p class="chart-desc">三平台加权综合评分</p>
+            <div id="barChart" class="chart-container"></div>
+          </div>
+          <div class="chart-card chart-card-wide">
+            <h3>平台定位图</h3>
+            <p class="chart-desc">横轴：低代码易用性 · 纵轴：企业 / 业务自动化能力</p>
+            <div id="scatterChart" class="chart-container chart-container-lg"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow Comparison -->
+    <section class="section section-alt" id="workflow">
+      <div class="container">
+        <h2 class="section-title" id="workflowTitle"></h2>
+        <div class="workflow-grid" id="workflowGrid"></div>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="section" id="screenshots">
+      <div class="container">
+        <h2 class="section-title" id="screenshotsTitle"></h2>
+        <p class="section-desc" id="screenshotsDesc"></p>
+        <div class="screenshot-gallery" id="screenshotGallery"></div>
+      </div>
+    </section>
+
+    <!-- Findings -->
+    <section class="section" id="findings">
+      <div class="container">
+        <h2 class="section-title" id="findingsTitle"></h2>
+        <div class="findings-list" id="findingsList"></div>
+      </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="section section-alt" id="nextSteps">
+      <div class="container">
+        <h2 class="section-title" id="nextStepsTitle"></h2>
+        <p class="section-text" id="nextStepsIntro"></p>
+        <div class="next-steps-grid" id="nextStepsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="section conclusion-section" id="conclusion">
+      <div class="container">
+        <h2 class="section-title" id="conclusionTitle"></h2>
+        <p class="section-text conclusion-intro" id="conclusionText"></p>
+        <div class="conclusion-scenarios" id="conclusionScenarios"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>AI Agent 工作流平台竞品分析 · 基于 Sales Pre-call Research Agent 实测</p>
+      <p class="footer-sub">Dify · Coze · Relevance AI</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="关闭">&times;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
